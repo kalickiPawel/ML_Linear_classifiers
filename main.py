@@ -164,6 +164,7 @@ class VotedPerceptron(Perceptron):
 def plotClass(X, y, clf=None, marker=["ro", "k+"], n=50):
     uy = np.unique(y)
     for i, u in enumerate(uy):
+        plt.title(type(clf).__name__)
         plt.plot(X[y == u, 0], X[y == u, 1], marker[i], label=str(u))
 
     if clf is not None:
