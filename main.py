@@ -181,8 +181,15 @@ def plotClass(X, y, clf=None, marker=["ro", "k+"], n=50):
 
 if __name__ == "__main__":
     m, n = 512, 2
-    X = np.random.rand(m, n)
-    y = (X.dot([1, 1]) > 1) * 2 - 1
+
+    # X = np.random.rand(m, n)
+    # y = (X.dot([1, 1]) > 1) * 2 - 1
+
+    x1 = np.random.rand(m, n)
+    x2 = np.random.rand(m, n)
+    x2[:, 1] = x2[:, 1] + 0.8
+    X = np.vstack((x1, x2))
+    y = np.concatenate((-np.ones(m), np.ones(m)))
 
     for i, clf in enumerate([
         Perceptron(),
