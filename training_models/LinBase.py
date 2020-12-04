@@ -10,6 +10,7 @@ class LinBase(BaseEstimator, ClassifierMixin):
 
     def margin(self, X, y):
         m = y*(X.dot(self.coef_)+self.intercept_)
+        m = m / np.linalg.norm(self.coef_)
         return np.min(m), m
 
     def decision_function(self, X):
