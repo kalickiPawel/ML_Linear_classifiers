@@ -61,4 +61,8 @@ if __name__ == "__main__":
     ]):
         clf.fit(X, y)
         plotClass(X, y, clf)
-        print(clf.coef_, clf.intercept_)
+        print(clf.__str__())
+        # y_pred = clf.predict(X)
+        # print('Accuracy: ', accuracy_score(list(y), list(y_pred)))
+        a, b = clf.margin(X, y)
+        print("Wartość marginesu: ", a)
