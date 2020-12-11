@@ -6,7 +6,7 @@ from sklearn.metrics import accuracy_score
 from training_models import Perceptron
 from training_models import AveragedPerceptron
 from training_models import VotedPerceptron
-from training_models import SVM
+from training_models import LinSvmOpt
 
 
 def plotClass(X, y, clf=None, marker=None, n=50):
@@ -19,7 +19,7 @@ def plotClass(X, y, clf=None, marker=None, n=50):
         plt.plot(X[y == u, 0], X[y == u, 1], marker[i], label=str(u))
 
     if clf is not None:
-        if isinstance(clf, SVM):
+        if isinstance(clf, LinSvmOpt):
             # plt.plot(self.svm_inds, '*')
             pass
             # TODO: plot dla punktów clf.svm_inds
@@ -57,7 +57,7 @@ if __name__ == "__main__":
         Perceptron(),
         AveragedPerceptron(),
         # VotedPerceptron(),
-        SVM()
+        LinSvmOpt()
     ]):
         clf.fit(X, y)
         plotClass(X, y, clf)

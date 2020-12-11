@@ -3,9 +3,9 @@ import numpy as np
 from training_models import LinBase
 
 
-class SVM(LinBase):
+class LinSvmOpt(LinBase):
     def __init__(self, **kwargs):
-        super(SVM, self).__init__(**kwargs)
+        super(LinSvmOpt, self).__init__(**kwargs)
         self.svm_inds_ = None
 
     def fit(self, X, y):
