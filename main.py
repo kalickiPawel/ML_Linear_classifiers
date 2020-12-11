@@ -40,7 +40,7 @@ if __name__ == "__main__":
 
     X = np.random.rand(m, n)
     y = (X.dot([1, 1]) > 1) * 2 - 1
-
+    X = X + np.random.rand(m, n) * 0.2
     # x1 = np.random.rand(m, n)
     # x2 = np.random.rand(m, n)
     # x2[:, 1] = x2[:, 1] + 0.8
@@ -54,8 +54,8 @@ if __name__ == "__main__":
     # y[y == 'Mine'] = 1
 
     for i, clf in enumerate([
-        Perceptron(),
-        AveragedPerceptron(),
+        # Perceptron(),
+        # AveragedPerceptron(),
         # VotedPerceptron(),
         LinSvmOpt()
     ]):
