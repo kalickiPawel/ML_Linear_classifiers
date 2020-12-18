@@ -7,6 +7,7 @@ from training_models import Perceptron
 from training_models import AveragedPerceptron
 from training_models import VotedPerceptron
 from training_models import LinSvmOpt
+from datasets import *
 
 
 def plotClass(X, y, clf=None, marker=None, n=50):
@@ -35,12 +36,32 @@ def plotClass(X, y, clf=None, marker=None, n=50):
     plt.show()
 
 
-if __name__ == "__main__":
-    m, n = 512, 2
+def spiral(p, noise=1):
+    t = np.linspace(0, 2*2*np.pi, p)    # 2*np.pi -> kąt pełny
+    x1 = np.array([t * np.cos(t), t * np.sin(t)]).T
+    x2 = np.array([t * np.cos(t+np.pi), t * np.sin(t+np.pi)]).T
+    x = np.vstack((x1, x2))
+    x = x + np.random.rand(*x.shape) * noise
+    y = np.concatenate((np.ones(p), -np.ones(p)))
+    return x, y
 
-    X = np.random.rand(m, n)
-    y = (X.dot([1, 1]) > 1) * 2 - 1
-    X = X + np.random.rand(m, n) * 0.2
+
+if __name__ == "__main__":
+    # TODO -> class to create data sets
+    #   simple linear split 1
+    #   simple linear split 2
+    #   non-separable case
+    #   sonar
+    #   chess
+    #   crescents -> from scikit-learn
+    #   nested spirals
+
+    # m, n = 512, 2
+
+    # X = np.random.rand(m, n)
+    # y = (X.dot([1, 1]) > 1) * 2 - 1
+    # X = X + np.random.rand(m, n) * 0.2
+
     # x1 = np.random.rand(m, n)
     # x2 = np.random.rand(m, n)
     # x2[:, 1] = x2[:, 1] + 0.8
@@ -53,16 +74,26 @@ if __name__ == "__main__":
     # y[y == 'Rock'] = -1
     # y[y == 'Mine'] = 1
 
-    for i, clf in enumerate([
-        # Perceptron(),
-        # AveragedPerceptron(),
-        # VotedPerceptron(),
-        LinSvmOpt()
-    ]):
-        clf.fit(X, y)
-        plotClass(X, y, clf)
-        print(clf.__str__())
-        # y_pred = clf.predict(X)
-        # print('Accuracy: ', accuracy_score(list(y), list(y_pred)))
-        a, b = clf.margin(X, y)
-        print("Wartość marginesu: ", a)
+    # for i, clf in enumerate([
+    #     # Perceptron(),
+    #     # AveragedPerceptron(),
+    #     # VotedPerceptron(),
+    #     # LinSvmOpt()
+    # ]):
+    #     clf.fit(X, y)
+    #     plotClass(X, y, clf)
+    #     print(clf.__str__())
+    #     # y_pred = clf.predict(X)
+    #     # print('Accuracy: ', accuracy_score(list(y), list(y_pred)))
+    #     a, b = clf.margin(X, y)
+    #     print("Wartość marginesu: ", a)
+
+    x, y = spiral(500)
+    plt.scatter(x[:, 0], x[:, 1], c=y)
+    plt.show()
+
+    # np.rand(()) * 3
+    # rand * 3 /
+    # where sum is % 2 or not % 2
+    # np.sum axis % 2 == 0
+    # int or round
