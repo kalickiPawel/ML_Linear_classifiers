@@ -4,6 +4,8 @@ from training_models import LinBase
 
 
 class LinSvmOpt(LinBase):
+    ksi = []
+
     def __init__(self, c=1, **kwargs):
         super(LinSvmOpt, self).__init__(**kwargs)
         self.svm_inds_ = None
@@ -18,7 +20,7 @@ class LinSvmOpt(LinBase):
         g1 = (-1)*np.hstack((X, np.ones((m, 1))))*np.outer(y, np.ones(n+1))
         g = np.vstack((np.hstack((g1, -np.diag(np.ones(m)))),
                       np.hstack((np.zeros((m, n+1)), -np.diag(np.ones(m))))))
-        h = np.vstack(( (-1)*np.ones((m, 1)), (0)*np.ones((m, 1)) ))
+        h = np.vstack(((-1) * np.ones((m, 1)), 0 * np.ones((m, 1))))
 
         pc = cvxopt.matrix(p)
         qc = cvxopt.matrix(q)
@@ -31,8 +33,8 @@ class LinSvmOpt(LinBase):
         self.intercept_ = np.array(solve['x'])[n, 0]
         self.ksi = np.array(solve['x'])[n+1:, 0]
         self.svm_inds_ = np.nonzero(self.ksi >= 1e-4)[0]
-        # proporcjonalnie do ksi ograniczyć zarysem
-        # nie spełniają -> większe
+        # limit the outline proportionally to the ksi value
+        # do not fulfill -> greather
         # self.svm_inds_ = np.nonzero(np.array(solve['z']))[0]
 
-        # porównać z sqlearnem
+        # compare with sqlearnem
