@@ -49,10 +49,12 @@ class VotedPerceptron(Perceptron):
         return np.sign(np.dot(np.sign(np.dot(v, X.T)).T, self.ck_))
 
     def predict_proba(self, X):
-        print(self.v_.shape)
-        print(self.v_bias_.shape)
         v = np.hstack((self.v_, np.array([self.v_bias_]).T))
         X = np.hstack((X, np.ones((X.shape[0], 1))))
         a = np.sign(np.dot(np.sign(np.dot(v, X.T)).T, self.ck_))
         b = 1 - a
-        return np.vstack(a, b).T
+        return np.vstack((a, b)).T
+
+    # Bo nie liniowy -> głosowanie po stronie predykcji
+    def margin(self, X, y):
+        return 0, 0
